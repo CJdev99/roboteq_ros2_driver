@@ -37,14 +37,13 @@ This driver assumes right motor is connected to channel 1 (M1) of motor controll
 
 ## TODO
 
-- [X] Finish initial development of motor commands and odometry stream in ROS2
+- [X] Initial ROS2 release with motor commands and odometry stream
 - [ ] Implement transform broadcasting with tf2
 - [ ] Add roboteq/voltage, roboteq/current, roboteq/energy, and roboteq/temperature publishers
 - [ ] Make topic names and frames configuration parameters configurable at runtime.
 - [ ] Make robot configuration parameters configurable at runtime.
 - [ ] Make motor controller device configuration parameters configurable at runtime.
 - [ ] Make miscellaneous motor controller configuration parameters configurable at runtime.
-- [ ] Implement dynamically enabled forced-run mode to verify correct motor power connections.
 - [ ] Implement dynamically enabled self-test mode to verify correct motor power and encoder connections and configuration.
 
 ## Authors
