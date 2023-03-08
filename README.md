@@ -39,8 +39,8 @@ It also expects that when it issues positive speed/power commands to the motor c
 ## TODO
 
 - [X] Finish initial development of motor commands and odometry stream in ROS2
-- [ ] Test with HDC2460
-- [ ] add roboteq/voltage, roboteq/current, roboteq/energy, and roboteq/temperature publishers
+- [ ] Implement transform broadcasting with tf2
+- [ ] Add roboteq/voltage, roboteq/current, roboteq/energy, and roboteq/temperature publishers
 - [ ] Make topic names and frames configuration parameters configurable at runtime.
 - [ ] Make robot configuration parameters configurable at runtime.
 - [ ] Make motor controller device configuration parameters configurable at runtime.
