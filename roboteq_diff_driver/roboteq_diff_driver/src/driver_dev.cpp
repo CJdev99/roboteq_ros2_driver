@@ -111,6 +111,9 @@ Roboteq::Roboteq(rclcpp::NodeOptions options) : Node("roboteq_diff_driver", opti
         cmdvel_topic, // topic name
         1000,         // QoS history depth
         std::bind(&Roboteq::cmdvel_callback, this, std::placeholders::_1));
+    
+     param_update_timer =
+     this->create_wall_timer(1000ms, std::bind(&Roboteq::update_params, this));
 }
 
 void Roboteq::update_parameters()
