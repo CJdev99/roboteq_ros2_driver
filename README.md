@@ -10,7 +10,7 @@ Does not require any MicroBasic script to operate.
 
 ## Usage
 
-Clone to src directory of catkin workspace, then 'colcon build'
+Clone to src directory of ros2 workspace, then 'colcon build'
 
 Requires serial package. If not already installed:
 
