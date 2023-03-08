@@ -2,6 +2,7 @@
 [original work for ROS1](https://github.com/ecostech/roboteq_diff_driver)
 
 ROS driver for the Roboteq SDC21xx, HDC24xx family of motor controllers in a differential-drive configuration.
+Initially developed for SDC21xx and HDC24xx, but could work with other roboteq dual-channel motor drivers.
 
 Subscribes to cmd_vel, publishes to odom
 
