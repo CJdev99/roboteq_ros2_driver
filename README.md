@@ -13,11 +13,11 @@ Does not require any MicroBasic script to operate.
 
 Clone to src directory of ros2 workspace, then 'colcon build'
 
-Requires serial package. If not already installed:
+Requires serial package. If not already installed, install ros2 branch of serial:
 
 Get the code:
     
-    git clone https://github.com/wjwwood/serial.git
+    git clone -b ros2 https://github.com/wjwwood/serial.git
 
 Build:
 
