@@ -13,7 +13,7 @@ Does not require any MicroBasic script to operate.
 
 Clone to src directory of ros2 workspace, then 'colcon build'
 
-Requires serial package. If not already installed, install ros2 branch of serial:
+Requires serial package, which is not available as deb in ROS2. If not already installed, install ros2 branch of serial:
 
 Get the code:
     
