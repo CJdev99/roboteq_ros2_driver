@@ -69,8 +69,9 @@ class Roboteq : public rclcpp::Node
   int encoder_cpr{};
   double max_amps{};
   int max_rpm{};
+  // Test different odom msg memory
   //nav_msgs::msg::Odometry odom_msg{};
-  nav_msgs::msg::Odometry::UniquePtr odom_msg{};
+  nav_msgs::msg::Odometry odom_msg{};
   //geometry_msgs::msg::Twist twist_msg{};
 
 
