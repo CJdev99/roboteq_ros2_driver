@@ -639,15 +639,7 @@ int main(int argc, char* argv[])
     //signal(SIGINT, mySigintHandler); // rclcpp::shutdown();
     return 0;
 
-    
-    // --- original ---
-    // Roboteq node;
 
-    // Override the default ros sigint handler.
-    // This must be set after the first NodeHandle is created.
-    // signal(SIGINT, mySigintHandler);
-
-    // return node.run();
 }
 
 /*
