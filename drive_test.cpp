@@ -22,18 +22,12 @@
 
 #define DELTAT(_nowtime, _thentime) ((_thentime > _nowtime) ? ((0xffffffff - _thentime) + _nowtime) : (_nowtime - _thentime))
 
-//
-// cmd_vel subscriber
-//
+
 
 // Define following to enable cmdvel debug output
 #define _CMDVEL_DEBUG
 
-// #include <geometry_msgs/msg/Twist.hpp> //maybe?
-// #include <nav_msgs/msg/Odometry.hpp> //Don't use these in ros2
-//
-//  odom publisher
-//
+
 
 // Define following to enable odom debug output
 #define _ODOM_DEBUG
