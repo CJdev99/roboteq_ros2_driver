@@ -32,7 +32,7 @@ class Roboteq : public rclcpp::Node
   uint32_t hstimer{};
   uint32_t mstimer{};
   uint32_t lstimer{};
-  
+  rclcpp::TimerBase::SharedPtr timer_;
 
   // buffer for reading encoder counts
   unsigned int odom_idx{};
@@ -96,6 +96,7 @@ class Roboteq : public rclcpp::Node
   void odom_ms_run();
   void odom_ls_run();
   void odom_publish();
+  void connect();
 
   void update_parameters();
   int run();
