@@ -24,18 +24,13 @@
 
 #define DELTAT(_nowtime, _thentime) ((_thentime > _nowtime) ? ((0xffffffff - _thentime) + _nowtime) : (_nowtime - _thentime))
 
-//
-// cmd_vel subscriber
-//
 
 // Define following to enable cmdvel debug output
 #define _CMDVEL_DEBUG
 
 // #include <geometry_msgs/msg/Twist.hpp> //maybe?
 // #include <nav_msgs/msg/Odometry.hpp> //Don't use these in ros2
-//
-//  odom publisher
-//
+
 
 // Define following to enable odom debug output
 #define _ODOM_DEBUG
@@ -113,17 +108,27 @@ Roboteq::Roboteq() : Node("roboteq_diff_driver")
     controller.setPort(port);
     controller.setBaudrate(baud);
     controller.setTimeout(timeout);
+    // connect to serial port
     connect();
+    // configure motor controller
     cmdvel_setup();
     odom_setup();
-    //
+//
+//  odom publisher
+//
     odom_pub = this->create_publisher<nav_msgs::msg::Odometry>(odom_topic, 1000);
+//
+// cmd_vel subscriber
+//
+
     cmdvel_sub = this->create_subscription<geometry_msgs::msg::Twist>(
         cmdvel_topic, // topic name
         1000,         // QoS history depth
         std::bind(&Roboteq::cmdvel_callback, this, std::placeholders::_1));
     using namespace std::chrono_literals;
+    // set odometry publishing loop timer at 10Hz
     timer_ = this->create_wall_timer(10ms,std::bind(&Roboteq::run, this));
+    // enable modifying params at run-time
     /*    
     using namespace std::chrono_literals;
 
@@ -209,10 +214,11 @@ void Roboteq::cmdvel_callback(const geometry_msgs::msg::Twist::SharedPtr twist_m
         // motor speed (rpm)
         int32_t right_rpm = right_speed / wheel_circumference * 60.0;
         int32_t left_rpm = left_speed / wheel_circumference * 60.0;
-
+        
         right_cmd << "!S 1 " << right_rpm << "\r";
         left_cmd << "!S 2 " << left_rpm << "\r";
     }
+//write cmd to motor controller
 #ifndef _CMDVEL_FORCE_RUN
   controller.write(right_cmd.str());
   controller.write(left_cmd.str());
@@ -329,6 +335,7 @@ void Roboteq::odom_setup()
     RCLCPP_INFO(this->get_logger(),"setting up odom...");
     if (pub_odom_tf)
     {
+        //TODO: implement tf2 broadcaster
         // RCLCPP_INFO(this->get_logger(), "Broadcasting odom tf"); // might use this-> instead of node
         //    odom_broadcaster.init(nh);	// ???
         
@@ -347,8 +354,8 @@ void Roboteq::odom_setup()
     tf_msg.header.frame_id = odom_frame;
     tf_msg.child_frame_id = base_frame;
     */
-    // broken here, test odom_msg memory
-    //auto odom_msg = nav_msgs::msg::Odometry();
+
+
     odom_msg.header.stamp = this->get_clock()->now();
     
     odom_msg.header.frame_id = odom_frame;
@@ -510,7 +517,7 @@ void Roboteq::odom_publish()
     odom_last_x = odom_x;
     odom_last_y = odom_y;
     odom_last_yaw = odom_yaw;
-    // convert yaw to quat; maybe wrongs
+    // convert yaw to quat;
     tf2::Quaternion tf2_quat;
     tf2_quat.setRPY(0, 0, odom_yaw);
     // Convert tf2::Quaternion to geometry_msgs::msg::Quaternion
@@ -536,7 +543,7 @@ void Roboteq::odom_publish()
         odom_broadcaster.sendTransform(tf_msg);
     }
     */
-    //fill odom msg
+    //update odom msg
 
     //odom_msg->header.seq++; //? not used in ros2 ?
     odom_msg.header.stamp = this->get_clock()->now();
@@ -553,41 +560,32 @@ void Roboteq::odom_publish()
     odom_pub->publish(odom_msg);
     // odom_pub.publish(odom_msg); ROS1
 }
-// main function of node
+
 int Roboteq::run()
 {
-    
-    // TODO: test this in contructor
-    // RCLCPP_INFO(rclcpp::get_logger(),"Beginning setup...");
-    //serial::Serial controller;
+
 
     
     // TODO: support automatic re-opening of port after disconnection
-    //orig
-    //cmdvel_setup();
-    //odom_setup();
+
 
     starttime = millis();
     hstimer = starttime;
     mstimer = starttime;
     lstimer = starttime;
 
-    //  ros::Rate loop_rate(10);
 
-   // RCLCPP_INFO(this->get_logger(),"Beginning looping...");
 
-    //while (rclcpp::ok())
-    //{
+
+
+
         
-        cmdvel_loop();
-        odom_loop();
-        cmdvel_run();
-        //uint32_t nowtime = millis();
-        // ROS_INFO_STREAM("loop nowtime: " << nowtime << " lstimer: " << lstimer << " delta: " << DELTAT(nowtime,lstimer) << " / " << (nowtime-lstimer));
-        // uint32_t delta = DELTAT(nowtime,lstimer);
-        // ROS_INFO_STREAM("loop nowtime: " << nowtime << " lstimer: " << lstimer << " delta: " << delta << " / " << (nowtime-lstimer));
+     cmdvel_loop();
+     odom_loop();
+     cmdvel_run();
 
-        //    // Handle 50 Hz publishing
+
+        // make separate publisher for various publishers
         //    if (DELTAT(nowtime,hstimer) >= 20)
         // Handle 30 Hz publishing
         /*
@@ -614,20 +612,10 @@ int Roboteq::run()
         }
         */
 
-        // ros::spinOnce();
-        // rclcpp::spin_some(this) // maybe put this for node??
-        // rclcpp::spin(std::make_shared<MainNode>());
-        //    loop_rate.sleep();
-        //rclcpp::NodeOptions options;
-        //rclcpp::spin(std::make_shared<Roboteq::Roboteq>(options));
+
         
         
-    //}
 
-    //if (controller.isOpen())
-    //    controller.close();
-
-    // RCLCPP_INFO(node->get_logger(),"Exiting");
 
     return 0;
 }
@@ -657,13 +645,5 @@ int main(int argc, char* argv[])
     //signal(SIGINT, mySigintHandler); // rclcpp::shutdown();
     return 0;
 
-    
-    // --- original ---
-    // Roboteq node;
-
-    // Override the default ros sigint handler.
-    // This must be set after the first NodeHandle is created.
-    // signal(SIGINT, mySigintHandler);
-
-    // return node.run();
+   
 }
