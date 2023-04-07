@@ -17,7 +17,7 @@ Requires serial package, which is not available as deb in ROS2. If not already i
 
 Get the code:
     
-    git clone -b ros2 https://github.com/wjwwood/serial.git
+    git clone -b ros2 https://github.com/SunnyApp-Robotics/serial.git
 
 Build:
 
