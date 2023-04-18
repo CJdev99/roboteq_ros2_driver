@@ -2,10 +2,10 @@
 
 // Include important C++ header files that provide class
 // templates for useful operations.
-#include <chrono>     // Date and time
-#include <functional> // Arithmetic, comparisons, and logical operations
-#include <memory>     // Dynamic memory management
-#include <string>     // String functions
+#include <chrono> 
+#include <functional> 
+#include <memory>     
+#include <string>     
 
 // ROS Client Library for C++
 // Allows use of the most common elements of ROS 2
@@ -13,7 +13,6 @@
 #include "rclcpp/clock.hpp"
 #include <iostream>
 
-// Built-in message type that will be used to publish data
 #include "std_msgs/msg/string.hpp"
 
 // dependencies for ROS
@@ -28,8 +27,7 @@
 // Define following to enable cmdvel debug output
 #define _CMDVEL_DEBUG
 
-// #include <geometry_msgs/msg/Twist.hpp> //maybe?
-// #include <nav_msgs/msg/Odometry.hpp> //Don't use these in ros2
+
 
 
 // Define following to enable odom debug output
@@ -52,6 +50,7 @@
 
 serial::Serial controller;
 /*
+//probably don't need custom interuption handler
 void mySigintHandler(int sig)
 {
     //RCLCPP_INFO(rclcpp::get_logger(),"Received SIGINT signal, shutting down..."); //todo
@@ -198,11 +197,11 @@ void Roboteq::cmdvel_callback(const geometry_msgs::msg::Twist::SharedPtr twist_m
         int32_t left_power = left_speed / wheel_circumference * 60.0 / max_rpm * 1000.0;
         /*
         // set minimum to overcome friction if cmd_vel too low
-        if (right_power < 10 && left_power > 0){
-            right_power = 10
+        if (right_power < 150 && left_power > 0){
+            right_power = 150
         }
-        if (left_power < 10 && left_power > 0){
-            left_power = 10
+        if (left_power < 150 && left_power > 0){
+            left_power = 150
         }
         */
         
