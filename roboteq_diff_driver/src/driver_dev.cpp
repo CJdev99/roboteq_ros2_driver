@@ -583,35 +583,6 @@ int Roboteq::run()
      odom_loop();
      cmdvel_run();
 
-
-        // make separate publisher for various publishers
-        //    if (DELTAT(nowtime,hstimer) >= 20)
-        // Handle 30 Hz publishing
-        /*
-        if (DELTAT(nowtime, hstimer) >= 33)
-        {
-            hstimer = nowtime;
-            //      odom_hs_run();
-        }
-
-        // Handle 10 Hz publishing
-        if (DELTAT(nowtime, mstimer) >= 100)
-        {
-            
-            mstimer = nowtime;
-            cmdvel_run();
-            //odom_ms_run();
-        }
-
-        // Handle 1 Hz publishing
-        if (DELTAT(nowtime, lstimer) >= 1000)
-        {
-            lstimer = nowtime;
-            //odom_ls_run();
-        }
-        */
-
-
         
         
 
