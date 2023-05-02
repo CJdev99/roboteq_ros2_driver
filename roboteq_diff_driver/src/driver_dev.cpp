@@ -451,6 +451,7 @@ void Roboteq::odom_loop()
     }
 
     // read sensor data stream from motor controller
+    // maybe use while loop to improve cpu usage?
     if (controller.available())
     {
         char ch = 0;
