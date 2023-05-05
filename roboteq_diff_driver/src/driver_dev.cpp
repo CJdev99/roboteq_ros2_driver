@@ -594,8 +594,9 @@ int Roboteq::run()
 Roboteq::~Roboteq()
 {
 
-    if (controller.isOpen())
+    if (controller.isOpen()){
         controller.close();
+    }
 
 }
 
