@@ -597,6 +597,7 @@ Roboteq::~Roboteq()
     if (controller.isOpen()){
         controller.close();
     }
+    // rclcpp::shutdown(); // uncomment if node doesnt destroy properly
 
 }
 
