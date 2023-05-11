@@ -31,7 +31,7 @@ def generate_launch_description():
     pkg_roboteq = get_package_share_directory('roboteq_diff_driver')
 
     # Config
-    roboteq_config = os.path.join(pkg_roboteq, 'config',
+    roboteq_config = os.path.join(pkg_roboteq, 'config/roboteq',
         'roboteq.yaml')
 
     # Nodes
