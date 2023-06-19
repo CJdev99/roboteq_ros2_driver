@@ -49,4 +49,4 @@ This driver assumes right motor is connected to channel 1 (M1) of motor controll
 ## Authors
 
 * **Chad Attermann** - *Initial work* - [Ecos Technologies](https://github.com/ecostech)
-* **Chase Devitt** - *initial ROS2 Migration*
+* **Chase Devitt** - *ROS2 Migration*
