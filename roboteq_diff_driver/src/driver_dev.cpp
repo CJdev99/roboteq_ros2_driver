@@ -1,14 +1,11 @@
 #include "roboteq_diff_driver/roboteq_diff_driver.hpp"
 
-// Include important C++ header files that provide class
-// templates for useful operations.
+
 #include <chrono> 
 #include <functional> 
 #include <memory>     
 #include <string>     
 
-// ROS Client Library for C++
-// Allows use of the most common elements of ROS 2
 #include "rclcpp/rclcpp.hpp"
 #include "rclcpp/clock.hpp"
 #include <iostream>
@@ -33,7 +30,7 @@
 // Define following to enable odom debug output
 #define _ODOM_DEBUG
 
-// Define following to publish additional sensor information; comment out to not publish
+// Define following to publish additional sensor information; comment out to not publish (TODO: write custom roboteq messages to support other reportable data from MC
 
 // #define _ODOM_SENSORS
 
