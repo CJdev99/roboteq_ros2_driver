@@ -46,6 +46,8 @@ This driver assumes right motor is connected to channel 1 (M1) of motor controll
 - [ ] Make miscellaneous motor controller configuration parameters configurable at runtime.
 - [ ] Implement dynamically enabled self-test mode to verify correct motor power and encoder connections and configuration.
 
+### Note: I do not have access to Roboteq hardware anymore - feel free to contribute!
+
 ## Authors
 
 * **Chad Attermann** - *Initial work* - [Ecos Technologies](https://github.com/ecostech)
