@@ -1,5 +1,5 @@
-# roboteq_ros2_driver
-
+# roboteq_driver
+[original work for ROS1](https://github.com/ecostech/roboteq_diff_driver)
 
 ROS2 driver for the Roboteq SDC21xx, HDC24xx family of motor controllers in a differential-drive configuration.
 Initially developed for SDC21xx and HDC24xx, but could work with other roboteq dual-channel motor drivers.
@@ -46,9 +46,7 @@ This driver assumes right motor is connected to channel 1 (M1) of motor controll
 - [ ] Make miscellaneous motor controller configuration parameters configurable at runtime.
 - [ ] Implement dynamically enabled self-test mode to verify correct motor power and encoder connections and configuration.
 
-### Note: I do not have access to Roboteq hardware anymore - feel free to contribute!
-[original work for ROS1](https://github.com/ecostech/roboteq_diff_driver)
 ## Authors
 
 * **Chad Attermann** - *Initial work* - [Ecos Technologies](https://github.com/ecostech)
-* **Chase Devitt** - *ROS2 Migration*
+* **Chase Devitt** - *initial ROS2 Migration*

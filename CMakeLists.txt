@@ -31,7 +31,6 @@ find_package(Boost 1.71 CONFIG REQUIRED COMPONENTS thread)
 # further dependencies manually.
 # find_package(<dependency> REQUIRED)
 
-#add_executable(roboteq_diff_driver src/driver.cpp)
 add_executable(roboteq_ros2_driver src/driver_dev.cpp)
 
 ament_target_dependencies(

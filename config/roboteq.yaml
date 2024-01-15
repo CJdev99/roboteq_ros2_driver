@@ -1,16 +1,16 @@
 roboteq:
   ros__parameters:
-    pub_odom_tf: false
+    pub_odom_tf: true
     odom_frame: "odom"
     base_frame: "base_link"
-    cmdvel_topic: "cmdvel"
+    cmdvel_topic: "cmd_vel"
     odom_topic: "odom"
     port: "/dev/ttyACM0"
-    baud: 115200
-    open_loop: true
-    wheel_circumference: 0.3192
-    track_width: 0.85
-    encoder_ppr: 1024
-    encoder_cpr: 4096
+    baud: 230600
+    open_loop: false
+    wheel_circumference: 0.464
+    track_width: 0.275
+    encoder_ppr: 4096
+    encoder_cpr: 16384
     max_amps: 5
     max_rpm: 100

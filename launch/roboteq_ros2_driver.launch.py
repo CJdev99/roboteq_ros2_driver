@@ -31,13 +31,13 @@ def generate_launch_description():
     pkg_roboteq = get_package_share_directory('roboteq_ros2_driver')
 
     # Config
-    roboteq_config = os.path.join(pkg_roboteq, 'config/roboteq',
+    roboteq_config = os.path.join(pkg_roboteq, 'config',
         'roboteq.yaml')
 
     # Nodes
     roboteq_ros2_driver = Node(
-        package='roboteq_ros2_driver',
-        executable='driver_dev',
+        package='roboteq_ros2driver',
+        executable='roboteq_ros2_driver',
         name='roboteq_ros2_driver',
         output='screen',
         parameters=[roboteq_config],
