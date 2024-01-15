@@ -28,7 +28,7 @@ Install:
     make install
     
     
-Sample launch files in roboteq_diff_driver/launch, or run `ros2 run roboteq_diff_driver roboteq_diff_driver`
+Sample launch files in roboteq_ros2_driver/launch, or run `ros2 run roboteq_ros2_driver roboteq_ros2_driver`
 
 ## Motor Power Connections
 
