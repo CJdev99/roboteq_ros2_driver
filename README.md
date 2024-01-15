@@ -1,4 +1,4 @@
-# roboteq_driver
+# roboteq_ros2_driver
 [original work for ROS1](https://github.com/ecostech/roboteq_diff_driver)
 
 ROS2 driver for the Roboteq SDC21xx, HDC24xx family of motor controllers in a differential-drive configuration.
