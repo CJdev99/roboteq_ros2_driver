@@ -1,4 +1,4 @@
-#include "roboteq_diff_driver/roboteq_diff_driver.hpp"
+#include "roboteq_ros2_driver/roboteq_ros2_driver.hpp"
 
 
 #include <chrono> 
@@ -64,7 +64,7 @@ uint32_t millis()
 
 namespace Roboteq
 {
-Roboteq::Roboteq() : Node("roboteq_diff_driver")
+Roboteq::Roboteq() : Node("roboteq_ros2_driver")
 // initialize parameters and variables
 {
     pub_odom_tf = this->declare_parameter("pub_odom_tf", false);
