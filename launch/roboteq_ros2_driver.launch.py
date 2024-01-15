@@ -28,22 +28,22 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
     # ROS packages
-    pkg_roboteq = get_package_share_directory('roboteq_diff_driver')
+    pkg_roboteq = get_package_share_directory('roboteq_ros2_driver')
 
     # Config
     roboteq_config = os.path.join(pkg_roboteq, 'config/roboteq',
         'roboteq.yaml')
 
     # Nodes
-    roboteq_diff_driver = Node(
-        package='roboteq_diff_driver',
+    roboteq_ros2_driver = Node(
+        package='roboteq_ros2_driver',
         executable='driver_dev',
-        name='roboteq_diff_driver',
+        name='roboteq_ros2_driver',
         output='screen',
         parameters=[roboteq_config],
     )
 
     return LaunchDescription([
         # Nodes
-        roboteq_diff_driver,
+        roboteq_ros2_driver,
     ])

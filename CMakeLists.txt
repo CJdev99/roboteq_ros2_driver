@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(roboteq_diff_driver)
+project(roboteq_ros2_driver)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -32,10 +32,10 @@ find_package(Boost 1.71 CONFIG REQUIRED COMPONENTS thread)
 # find_package(<dependency> REQUIRED)
 
 #add_executable(roboteq_diff_driver src/driver.cpp)
-add_executable(roboteq_diff_driver src/driver_dev.cpp)
+add_executable(roboteq_ros2_driver src/driver_dev.cpp)
 
 ament_target_dependencies(
-  roboteq_diff_driver serial
+  roboteq_ros2_driver serial
   rclcpp
   sensor_msgs
   std_msgs
@@ -46,7 +46,7 @@ ament_target_dependencies(
   tf2_geometry_msgs
 )
 
-target_include_directories(roboteq_diff_driver PUBLIC
+target_include_directories(roboteq_ros2_driver PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
 
@@ -55,7 +55,7 @@ install(
   DESTINATION share/${PROJECT_NAME}/
 )
 
-install(TARGETS roboteq_diff_driver
+install(TARGETS roboteq_ros2_driver
   DESTINATION lib/${PROJECT_NAME})
   
 if(BUILD_TESTING)
