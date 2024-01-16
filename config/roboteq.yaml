@@ -5,7 +5,7 @@ roboteq:
     base_frame: "base_link"
     cmdvel_topic: "cmd_vel"
     odom_topic: "odom"
-    port: "/dev/ttyACM0"
+    port: "/dev/ttyUSB0"
     baud: 230600
     open_loop: false
     wheel_circumference: 0.464
@@ -14,3 +14,4 @@ roboteq:
     encoder_cpr: 16384
     max_amps: 5
     max_rpm: 100
+    gear_ratio: 9.2

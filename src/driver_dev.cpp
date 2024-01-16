@@ -71,7 +71,7 @@ namespace Roboteq
         base_frame = this->declare_parameter("base_frame", "base_link");
         cmdvel_topic = this->declare_parameter("cmdvel_topic", "cmd_vel");
         odom_topic = this->declare_parameter("odom_topic", "odom");
-        port = this->declare_parameter("port", "/dev/motor_controller");
+        port = this->declare_parameter("port", "/dev/ttyACM0");
         baud = this->declare_parameter("baud", 115200);
         open_loop = this->declare_parameter("open_loop", false);
         wheel_circumference = this->declare_parameter("wheel_circumference", 0.49);
@@ -80,6 +80,8 @@ namespace Roboteq
         encoder_cpr = this->declare_parameter("encoder_cpr", 16384);
         max_amps = this->declare_parameter("max_amps", 5.0);
         max_rpm = this->declare_parameter("max_rpm", 100);
+        gear_ratio = this->declare_parameter("gear_ratio", 9.2);
+
         // total_encoder_pulses=0;
         starttime = 0;
         hstimer = 0;
@@ -127,12 +129,10 @@ namespace Roboteq
             std::make_unique<tf2_ros::TransformBroadcaster>(*this);
 
         // enable modifying params at run-time
-        /*
-        using namespace std::chrono_literals;
 
         param_update_timer =
-          this->create_wall_timer(1000ms, std::bind(&Roboteq::update_params, this));
-        */
+            this->create_wall_timer(1000ms, std::bind(&Roboteq::update_parameters, this));
+
         // run();
     }
 
@@ -153,6 +153,7 @@ namespace Roboteq
         this->get_parameter("encoder_cpr", encoder_cpr);
         this->get_parameter("max_amps", max_amps);
         this->get_parameter("max_rpm", max_rpm);
+        this->get_parameter("gear_ratio", gear_ratio);
     }
 
     void Roboteq::connect()
@@ -186,9 +187,9 @@ namespace Roboteq
         std::stringstream left_cmd;
 
         // motor speed (rpm)
-        int32_t right_rpm = right_speed * GEAR_RATIO / wheel_circumference * 60.0;
+        int32_t right_rpm = right_speed * gear_ratio / wheel_circumference * 60.0;
         // std::cout<<"Speed "<<right_speed<<"RPM "<<right_rpm<<std::endl;
-        int32_t left_rpm = left_speed * GEAR_RATIO / wheel_circumference * 60.0;
+        int32_t left_rpm = left_speed * gear_ratio / wheel_circumference * 60.0;
         // std::cout<<"Sending Command Velocity"<<right_rpm<<std::endl;
         right_cmd << "!S 1 " << right_rpm << "\r";
         left_cmd << "!S 2 " << left_rpm << "\r";
@@ -410,9 +411,9 @@ namespace Roboteq
         odom_last_time = nowtime;
         // total_encoder_pulses+=odom_encoder_right;
         // determine deltas of distance and angle
-        float linear = ((float)odom_encoder_right * wheel_circumference / (60 * GEAR_RATIO) + (float)odom_encoder_left * wheel_circumference / (60 * GEAR_RATIO)) / 2;
+        float linear = ((float)odom_encoder_right * wheel_circumference / (60 * gear_ratio) + (float)odom_encoder_left * wheel_circumference / (60 * gear_ratio)) / 2;
         //  float angular = ((float)odom_encoder_right / (float)encoder_cpr * wheel_circumference - (float)odom_encoder_left / (float)encoder_cpr * wheel_circumference) / track_width * -1.0;
-        float angular = ((float)odom_encoder_right * wheel_circumference / (60 * GEAR_RATIO) - (float)odom_encoder_left * wheel_circumference / (60 * GEAR_RATIO)) / track_width;
+        float angular = ((float)odom_encoder_right * wheel_circumference / (60 * gear_ratio) - (float)odom_encoder_left * wheel_circumference / (60 * gear_ratio)) / track_width;
         // Update odometry
         odom_x += linear * dt * cos(odom_yaw);         // m
         odom_y += linear * dt * sin(odom_yaw);         // m

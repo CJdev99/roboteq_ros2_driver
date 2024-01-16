@@ -35,6 +35,7 @@ namespace Roboteq
     uint32_t mstimer{};
     uint32_t lstimer{};
     rclcpp::TimerBase::SharedPtr timer_;
+    rclcpp::TimerBase::SharedPtr param_update_timer;
 
     // buffer for reading encoder counts
     unsigned int odom_idx{};
@@ -70,7 +71,7 @@ namespace Roboteq
     int encoder_cpr{};
     double max_amps{};
     int max_rpm{};
-    float GEAR_RATIO = 9.2;
+    float gear_ratio = {};
     // Test different odom msg memory
     // nav_msgs::msg::Odometry odom_msg{};
     nav_msgs::msg::Odometry odom_msg{};
