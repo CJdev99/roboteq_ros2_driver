@@ -36,7 +36,7 @@ def generate_launch_description():
 
     # Nodes
     roboteq_ros2_driver = Node(
-        package='roboteq_ros2driver',
+        package='roboteq_ros2_driver',
         executable='roboteq_ros2_driver',
         name='roboteq_ros2_driver',
         output='screen',
