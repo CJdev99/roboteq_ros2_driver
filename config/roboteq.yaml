@@ -1,4 +1,4 @@
-roboteq:
+roboteq_ros2_driver:
   ros__parameters:
     pub_odom_tf: false
     odom_frame: "odom"
