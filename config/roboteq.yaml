@@ -1,4 +1,4 @@
-roboteq:
+roboteq_ros2_driver:
   ros__parameters:
     pub_odom_tf: true
     odom_frame: "odom"
@@ -12,6 +12,6 @@ roboteq:
     track_width: 0.275
     encoder_ppr: 4096
     encoder_cpr: 16384
-    max_amps: 5
+    max_amps: 5.0
     max_rpm: 100
     gear_ratio: 9.2
