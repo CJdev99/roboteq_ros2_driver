@@ -437,19 +437,18 @@ namespace Roboteq
         //  TODO: set up tf2_ros
 
         quat = tf2::toMsg(tf2::Quaternion(tf2::Vector3(0, 0, 1), odom_yaw));
-        // if ( pub_odom_tf )
-        // {
-        tf_msg.header.stamp = this->get_clock()->now();
-        tf_msg.header.frame_id = odom_frame;
-        tf_msg.child_frame_id = base_frame;
+        if (pub_odom_tf)
+        {
+            tf_msg.header.stamp = this->get_clock()->now();
+            tf_msg.header.frame_id = odom_frame;
+            tf_msg.child_frame_id = base_frame;
 
-        tf_msg.transform.translation.x = odom_x;
-        tf_msg.transform.translation.y = odom_y;
-        tf_msg.transform.translation.z = 0.0;
-        tf_msg.transform.rotation = quat;
-        odom_baselink_transform_->sendTransform(tf_msg);
-
-        // }
+            tf_msg.transform.translation.x = odom_x;
+            tf_msg.transform.translation.y = odom_y;
+            tf_msg.transform.translation.z = 0.0;
+            tf_msg.transform.rotation = quat;
+            odom_baselink_transform_->sendTransform(tf_msg);
+        }
 
         // update odom msg
 
