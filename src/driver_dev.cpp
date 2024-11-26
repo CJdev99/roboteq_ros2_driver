@@ -36,7 +36,8 @@
 
 #include <tf2_ros/transform_broadcaster.h>
 #include <geometry_msgs/msg/transform_stamped.hpp>
-#include <tf2/Math/Quaternion.h>
+#include <tf2/LinearMath/Quaternion.h>
+
 
 serial::Serial controller;
 
@@ -158,27 +159,38 @@ namespace Roboteq
     }
 
     void Roboteq::cmdvel_callback(const geometry_msgs::msg::Twist::SharedPtr twist_msg)
-    {                                                                                  
-        // wheel speed (m/s)
-        float right_speed = twist_msg->linear.x + track_width * twist_msg->angular.z / 2.0;
-        float left_speed = twist_msg->linear.x - track_width * twist_msg->angular.z / 2.0;
+{
+    // Command velocities
+    float linear_velocity = twist_msg->linear.x;  // Linear velocity (m/s)
+    float angular_velocity = twist_msg->angular.z; // Angular velocity (rad/s)
 
-        std::stringstream right_cmd;
-        std::stringstream left_cmd;
+    // Scale factors for motor commands (adjust if needed)
+    const float linear_scale = 700.0;  // Scale linear velocity to motor units
+    const float angular_scale = 110.0; // Scale angular velocity to motor units
 
-        // motor speed (rpm)
-        int32_t right_rpm = right_speed * gear_ratio / wheel_circumference * 60.0;
-        int32_t left_rpm = left_speed * gear_ratio / wheel_circumference * 60.0;
-        right_cmd << "!S 1 " << right_rpm << "\r";
-        left_cmd << "!S 2 " << left_rpm << "\r";
+    // Convert velocities to motor command values
+    int32_t linear_command = static_cast<int32_t>(linear_velocity * linear_scale);
+    int32_t angular_command = static_cast<int32_t>(angular_velocity * angular_scale);
 
-// write cmd to motor controller
+    std::stringstream linear_cmd;
+    std::stringstream angular_cmd;
+
+    // Formulate commands
+    linear_cmd << "!G 1 " << linear_command << "\r";
+    angular_cmd << "!G 2 " << angular_command << "\r";
+
+    // Write commands to motor controller
 #ifndef _CMDVEL_FORCE_RUN
-        controller.write(right_cmd.str());
-        controller.write(left_cmd.str());
-        controller.flush();
+    controller.write(linear_cmd.str());
+    controller.write(angular_cmd.str());
+    controller.flush();
 #endif
-    }
+
+    // Log the commands for debugging
+    RCLCPP_INFO(this->get_logger(), "Sending to Motor Controller: %s", linear_cmd.str().c_str());
+    RCLCPP_INFO(this->get_logger(), "Sending to Motor Controller: %s", angular_cmd.str().c_str());
+}
+
     void Roboteq::cmdvel_setup()
     {
         RCLCPP_INFO(this->get_logger(), "configuring motor controller...");
@@ -436,8 +448,8 @@ namespace Roboteq
         odom_msg.pose.pose.position.z = 0.0;
         odom_msg.pose.pose.orientation = quat;
         odom_msg.twist.twist.linear.x = linear;
-        odom_msg.twist.twist..y = 0.0;
-        odom_msg.twist.twist..z = 0.0;
+        odom_msg.twist.twist.linear.y = 0.0;
+        odom_msg.twist.twist.linear.z = 0.0;
         odom_msg.twist.twist.angular.x = 0.0;
         odom_msg.twist.twist.angular.y = 0.0;
         odom_msg.twist.twist.angular.z = angular;
